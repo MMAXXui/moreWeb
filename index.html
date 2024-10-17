@@ -9,7 +9,7 @@
             margin: 0;
             padding: 0;
             font-family: 'Courier New', Courier, monospace;
-            color: #00ff00;
+            color: #007bff;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -17,12 +17,13 @@
             text-align: center;
             position: relative;
             overflow: hidden;
+            background-color: #0a0e27; /* Matching background color */
         }
 
         h1 {
             font-size: 4em;
             letter-spacing: 0.1em;
-            text-shadow: 0 0 10px #00ff00;
+            text-shadow: 0 0 10px #007bff;
             margin-bottom: 20px;
         }
 
@@ -38,41 +39,34 @@
         }
 
         .btn {
-            font-size: 1.8em;
-            color: #0d0d0d;
-            background-color: #00ff00;
+            font-size: 1.5em;
+            color: #ffffff;
+            background-color: #007bff;
             border: none;
-            padding: 20px 40px;
-            border-radius: 25px;
+            padding: 15px 30px;
+            border-radius: 10px;
             cursor: pointer;
             transition: 0.3s;
             font-family: 'Verdana', sans-serif;
         }
 
         .btn:hover {
-            background-color: #009900;
+            background-color: #0056b3;
         }
 
         .glitch {
             font-size: 1.2em;
-            color: #00ff00;
+            color: #007bff;
             position: relative;
-            animation: glitch 1.5s infinite;
             margin-top: 10px;
+            text-shadow: none;
+            animation: glitch 1.5s infinite alternate;
         }
 
         @keyframes glitch {
-            0% { clip: rect(42px, 9999px, 44px, 0); transform: skew(0.35deg); }
-            10% { clip: rect(44px, 9999px, 59px, 0); transform: skew(0.42deg); }
-            20% { clip: rect(24px, 9999px, 67px, 0); transform: skew(0.22deg); }
-            30% { clip: rect(16px, 9999px, 50px, 0); transform: skew(0.56deg); }
-            40% { clip: rect(22px, 9999px, 68px, 0); transform: skew(0.25deg); }
-            50% { clip: rect(11px, 9999px, 43px, 0); transform: skew(0.45deg); }
-            60% { clip: rect(17px, 9999px, 53px, 0); transform: skew(0.35deg); }
-            70% { clip: rect(5px, 9999px, 60px, 0); transform: skew(0.22deg); }
-            80% { clip: rect(32px, 9999px, 74px, 0); transform: skew(0.31deg); }
-            90% { clip: rect(47px, 9999px, 55px, 0); transform: skew(0.39deg); }
-            100% { clip: rect(43px, 9999px, 63px, 0); transform: skew(0.42deg); }
+            0% { transform: translateX(0); }
+            50% { transform: translateX(3px); }
+            100% { transform: translateX(-3px); }
         }
 
         #matrix {
@@ -82,17 +76,15 @@
             width: 100%;
             height: 100%;
             z-index: -1;
-            background-color: black;
         }
     </style>
 </head>
 <body>
-    <canvas id="matrix"></canvas>
+    <canvas id="matrix"></canvas> <!-- Matrix background -->
     <div class="container">
         <h1>PC CHECK ARABIC TEAM</h1>
-        <p class="glitch">Welcome to the dark side...</p>
+        <p class="glitch">Welcome to a secure experience...</p>
         <div class="btn-container">
-            <button class="btn" onclick="window.location.href='https://mmaxxui.github.io/CHECK/';">Contact</button>
             <button class="btn" onclick="window.location.href='https://discord.gg/5SStmv8h';">Discord Server</button>
             <button class="btn" onclick="window.location.href='https://mmaxxui.github.io/hhWabHH/';">PC Check</button>
         </div>
@@ -105,40 +97,33 @@
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
 
-        const letters = '0123456789ABCDEF'; // Characters to use
+        const letters = '0123456789ABCDEF';
         const fontSize = 16;
-        const columns = canvas.width / fontSize; // Number of columns based on canvas width
+        const columns = canvas.width / fontSize;
 
-        // Create an array of drops, one for each column
         const drops = Array(Math.floor(columns)).fill(1);
 
         function drawMatrix() {
-            // Set the background with opacity to create trailing effect
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillStyle = 'rgba(10, 14, 39, 0.1)'; // Background color effect
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            ctx.fillStyle = '#0f0'; // Green color
+            ctx.fillStyle = '#00ccff'; // Matrix text color
             ctx.font = `${fontSize}px monospace`;
 
-            // Loop over drops
             drops.forEach((y, x) => {
                 const text = letters.charAt(Math.floor(Math.random() * letters.length));
-
                 ctx.fillText(text, x * fontSize, y * fontSize);
 
-                // Randomly reset drop after it reaches the bottom of the screen
                 if (y * fontSize > canvas.height && Math.random() > 0.975) {
                     drops[x] = 0;
                 }
 
-                // Increment drop's Y position
                 drops[x]++;
             });
         }
 
-        setInterval(drawMatrix, 50); // Redraw every 50ms for smooth animation
+        setInterval(drawMatrix, 50);
 
-        // Adjust canvas size when the window is resized
         window.addEventListener('resize', () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
